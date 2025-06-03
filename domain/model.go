@@ -1,6 +1,9 @@
 package domain
 
-import "time"
+import (
+	"slices"
+	"time"
+)
 
 type Task struct {
 	Id                            int64
@@ -11,6 +14,10 @@ type Task struct {
 }
 
 type Smart[T any] []T
+
+func (self Smart[T]) IndexOf(filter func(item T) bool) int {
+	return slices.IndexFunc(self, filter)
+}
 
 func (self Smart[T]) Filter(filter func(item T) bool) Smart[T] {
 	items := []T{}
