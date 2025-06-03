@@ -1,36 +1,44 @@
 package domain
 
 type Command interface {
-	Execute(tasks *[]Task) *Command
+	Execute()
 }
 
-type CommandMenu struct{}
+type CommandMenu struct {
+	channel chan<- Command
+}
+type CommandAdd struct {
+	Title              string
+	DueAt, Description *string
+}
+type CommandHelp struct {
+	Reason string
+}
+type CommandEdit struct {
+	Id                        string
+	Title, DueAt, Description *string
+}
+type CommandSearch struct {
+	DueAt, Filter, Paranoid *string
+}
 type CommandDelete struct {
 	Id string
 }
 type CommandComplete struct {
 	Id string
 }
-type CommandSearch struct {
-	DueAt, Filter, Paranoid *string
-}
-type CommandEdit struct {
-	Id                        string
-	Title, DueAt, Description *string
-}
 
-func (self CommandComplete) Execute(tasks *[]Task) *Command {
-	return nil
+func (self CommandComplete) Execute() {
 }
-func (self CommandDelete) Execute(tasks *[]Task) *Command {
-	return nil
+func (self CommandDelete) Execute() {
 }
-func (self CommandSearch) Execute(tasks *[]Task) *Command {
-	return nil
+func (self CommandSearch) Execute() {
 }
-func (self CommandEdit) Execute(tasks *[]Task) *Command {
-	return nil
+func (self CommandEdit) Execute() {
 }
-func (self CommandMenu) Execute(tasks *[]Task) *Command {
-	return nil
+func (self CommandMenu) Execute() {
+}
+func (self CommandHelp) Execute() {
+}
+func (self CommandAdd) Execute() {
 }
